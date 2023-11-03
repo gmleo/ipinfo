@@ -30,11 +30,11 @@ class SearchService
         $api_result = json_decode($json_res, true);
 
         $history = new History();
-        if (isset($api_result['success']) && $api_result['success'] == 'false') {
+        if (array_key_exists('success', $api_result) == false) {
             $history->ip = $api_result['ip'];
             $history->continentName = $api_result['continentName'];
-            $history->city = $api_result['regionName'];
-            $history->postalCode = $api_result['postalCode'];
+            $history->city = isset($api_result['regionName']) ? $api_result['regionName'] : "";
+            $history->postalCode = isset($api_result['postalCode']) ? $api_result['postalCode'] : "";
             $history->latitude = $api_result['latitude'];
             $history->longitude = $api_result['longitude'];
             $history->capital = $api_result['capital'];
